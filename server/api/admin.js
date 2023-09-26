@@ -55,7 +55,7 @@ router.delete('/categories/:id', JwtUtil.checkToken, async function (req, res) {
   res.json(result);
 });
 //Router Products
-//Router get products 
+//GET products (list) 
 router.get('/products',JwtUtil.checkToken,async function(req,res){
   //pagination
   const noProducts = await ProductDAO.selectByCount();
@@ -69,6 +69,35 @@ router.get('/products',JwtUtil.checkToken,async function(req,res){
   const result = { products:products, noPages:noPages,curPage:curPage};
   res.json(result);
 })
-
-
+//POST product (create)
+router.post('/products', JwtUtil.checkToken, async function (req, res) {
+  const name = req.body.name;
+  const price = req.body.price;
+  const cid = req.body.category;
+  const image = req.body.image;
+  const now = new Date().getTime(); // milliseconds
+  const category = await CategoryDAO.selectByID(cid);
+  const product = { name: name, price: price, image: image, cdate: now, category: category };
+  const result = await ProductDAO.insert(product);
+  res.json(result);
+});
+//PUT product (update)
+router.put('/products/:id', JwtUtil.checkToken, async function (req, res) {
+  const _id = req.params.id;
+  const name = req.body.name;
+  const price = req.body.price;
+  const cid = req.body.category;
+  const image = req.body.image;
+  const now = new Date().getTime(); // milliseconds
+  const category = await CategoryDAO.selectByID(cid);
+  const product = { _id: _id, name: name, price: price, image: image, cdate: now, category: category };
+  const result = await ProductDAO.update(product);
+  res.json(result);
+});
+//Delete product (delete)
+router.delete('/products/:id', JwtUtil.checkToken, async function (req, res) {
+  const _id = req.params.id;
+  const result = await ProductDAO.delete(_id);
+  res.json(result);
+});
 module.exports = router;

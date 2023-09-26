@@ -1,6 +1,6 @@
 require('../utils/MongooseUtil');
 const Models = require('./Models');
-
+//Category DAO
 const CategoryDAO = {
   async selectAll() {
     const query = {};
@@ -21,7 +21,21 @@ const CategoryDAO = {
   async delete(_id) {
     const result = await Models.Category.findByIdAndRemove(_id);
     return result;
+  },
+  async selectByID(_id) {
+    const category = await Models.Category.findById(_id).exec();
+    return category;
   }
+  
 };
+//Product DAO
+const ProductDAO = {
+  async insert(product){
+    const mongoose = require('mongoose');
+    product._id = new mongoose.Types.ObjectId();
+    const result = await Models.Product.create(product);
+    return result;
+  }
+}
 
 module.exports = CategoryDAO;
