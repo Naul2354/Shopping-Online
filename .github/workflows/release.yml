@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy Node.js app to Azure Web App - shopping-online-admin1
+name: Build and deploy Node.js app to Azure Web App - shoppingonline1
 
 on:
   push:
@@ -14,24 +14,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - name: "☁️ Checkout code..."
+        uses: actions/checkout@v2
 
-      - name: Set up Node.js version
-        uses: actions/setup-node@v1
-        with:
-          node-version: '18.x'
+      - name: Set up Node.js 
+        uses: actions/setup-node@v2
+        width:
+          node-version: '14'
 
-      - name: npm install, build, and test
+      - name: npm install, build
         run: |
+          cd client-customer
           npm install
-          npm run build --if-present
-          npm run test --if-present
+          npm run build
+
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: node-app
-          path: .
+          path: client-customer/build
 
   deploy:
     runs-on: ubuntu-latest
@@ -50,7 +52,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'shopping-online-admin1'
+          app-name: 'shoppingonline1'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2FAF33AD419A43E5AB9ACD24CD41E32E }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_ECACBA49AF1040AB926A90C64375A331 }}
           package: .
