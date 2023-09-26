@@ -1,4 +1,4 @@
-# Welcome Shopping Online Web app 👋
+# Welcome Shopping Online Web app for purpose study 👋
 <br>
 
 ## 🐧🐧cloning project from this link 
