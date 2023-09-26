@@ -1,10 +1,10 @@
 # Welcome Shopping Online Web app for purpose study 👋
 <br>
 
-## 🐧🐧cloning project from this link 
+## 🐧 cloning project from this link 
 
 ```
-git clone https://github.com/Naul2354/nodejs-todo-app-demo.git
+git clone https://github.com/Naul2354/Shopping-Online.git
 ```
 
 ## 💡 install dependencies before run app
