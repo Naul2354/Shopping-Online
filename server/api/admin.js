@@ -27,7 +27,7 @@ router.get('/token', JwtUtil.checkToken, function (req, res) {
   const token = req.headers['x-access-token'] || req.headers['authorization'];
   res.json({ success: true, message: 'Token is valid', token: token }); //use POSTMAN to check valid token
 });
-
+//CATEGORIES
 //router GET categories (list)
 router.get('/categories', JwtUtil.checkToken, async function (req, res) {
   const categories = await CategoryDAO.selectAll();
