@@ -19,7 +19,7 @@ jobs:
 
       - name: Set up Node.js 
         uses: actions/setup-node@v2
-        width:
+        with:
           node-version: '14'
 
       - name: npm install, build
