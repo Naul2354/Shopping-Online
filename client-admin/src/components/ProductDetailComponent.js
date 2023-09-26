@@ -53,8 +53,8 @@ class ProductDetail extends Component {
                 <td></td>
                 <td>
                     <input type="submit" value="ADD NEW" onClick={(e) => this.btnAddClick(e)} />
-                  <input type="submit" value="UPDATE" />
-                  <input type="submit" value="DELETE" />
+                    <input type="submit" value="UPDATE" onClick={(e) => this.btnUpdateClick(e)} />
+                    <input type="submit" value="DELETE" onClick={(e) => this.btnDeleteClick(e)} />
                 </td>
               </tr>
               <tr>
@@ -91,7 +91,7 @@ class ProductDetail extends Component {
       reader.readAsDataURL(file);
     }
   }
-  // apis
+  // apis get categories
   apiGetCategories() {
     const config = { headers: { 'x-access-token': this.context.token } };
     axios.get('/api/admin/categories', config).then((res) => {
@@ -99,6 +99,91 @@ class ProductDetail extends Component {
       this.setState({ categories: result });
     });
   }
+  //POST product ( create new product)
+  apiPostProduct(prod) {
+    const config = { headers: { 'x-access-token': this.context.token } };
+    axios.post('/api/admin/products', prod, config).then((res) => {
+      const result = res.data;
+      if (result) {
+        alert('OK BABY!');
+        this.apiGetProducts();
+      } else {
+        alert('SORRY BABY!');
+      }
+    });
+  }
+  //GET product ( list product)
+//   apiGetProducts() {
+//     const config = { headers: { 'x-access-token': this.context.token } };
+//     axios.get('/api/admin/products?page=' + this.props.curPage, config).then((res) => {
+//         if (result.products.length !== 0) {
+//         this.props.updateProducts(result.products, result.noPages, result.curPage);
+//       } else {
+//         const curPage = this.props.curPage - 1;
+//         axios.get('/api/admin/products?page=' + curPage, config).then((res) => {
+//           const result = res.data;
+//           this.props.updateProducts(result.products, result.noPages, curPage);
+//         });
+//       }
+//     });
+//   }
+//fix bug
+    apiGetProducts() {
+        const config = { headers: { 'x-access-token': this.context.token } };
+        axios.get('/api/admin/products?page=' + this.props.curPage, config).then((res) => {
+        if (res.data.products.length !== 0) { // Use 'res.data' here instead of 'result'
+            this.props.updateProducts(res.data.products, res.data.noPages, res.data.curPage); // Use 'res.data' here instead of 'result'
+        } else {
+            const curPage = this.props.curPage - 1;
+            axios.get('/api/admin/products?page=' + curPage, config).then((response) => { // Rename 'res' to 'response'
+            const result = response.data; // Use 'response.data' here
+            this.props.updateProducts(result.products, result.noPages, curPage);
+            });
+        }
+        });
+    }
+  //PUT product ( update product)
+  apiPutProduct(id, prod) {
+    const config = { headers: { 'x-access-token': this.context.token } };
+    axios.put('/api/admin/products/' + id, prod, config).then((res) => {
+      const result = res.data;
+      if (result) {
+        alert('OK BABY!');
+        this.apiGetProducts();
+      } else {
+        alert('SORRY BABY!');
+      }
+    });
+  }
+  //DELETE product ( delete product)
+  apiDeleteProduct(id) {
+    const config = { headers: { 'x-access-token': this.context.token } };
+    axios.delete('/api/admin/products/' + id, config).then((res) => {
+      const result = res.data;
+      if (result) {
+        alert('OK BABY!');
+        this.apiGetProducts();
+      } else {
+        alert('SORRY BABY!');
+      }
+    });
+  }
+  //Button Update 
+  btnUpdateClick(e) {
+    e.preventDefault();
+    const id = this.state.txtID;
+    const name = this.state.txtName;
+    const price = parseInt(this.state.txtPrice);
+    const category = this.state.cmbCategory;
+    const image = this.state.imgProduct.replace(/^data:image\/[a-z]+;base64,/, ''); // remove "data:image/...;base64,"
+    if (id && name && price && category && image) {
+      const prod = { name: name, price: price, category: category, image: image };
+      this.apiPutProduct(id, prod);
+    } else {
+      alert('Please input id and name and price and category and image');
+    }
+  }
+  //Button Add
   btnAddClick(e) {
     e.preventDefault();
     const name = this.state.txtName;
@@ -112,24 +197,18 @@ class ProductDetail extends Component {
       alert('Please input name and price and category and image');
     }
   }
-  apiPostProduct(prod) {
-    const config = { headers: { 'x-access-token': this.context.token } };
-    axios.post('/api/admin/products', prod, config).then((res) => {
-      const result = res.data;
-      if (result) {
-        alert('OK BABY!');
-        this.apiGetProducts();
+  //Button Delete
+  btnDeleteClick(e) {
+    e.preventDefault();
+    if (window.confirm('ARE YOU SURE?')) {
+      const id = this.state.txtID;
+      if (id) {
+        this.apiDeleteProduct(id);
       } else {
-        alert('SORRY BABY!');
+        alert('Please input id');
       }
-    });
+    }
   }
-  apiGetProducts() {
-    const config = { headers: { 'x-access-token': this.context.token } };
-    axios.get('/api/admin/products?page=' + this.props.curPage, config).then((res) => {
-      const result = res.data;
-      this.props.updateProducts(result.products, result.noPages, result.curPage);
-    });
-  }
+
 }
 export default ProductDetail;
