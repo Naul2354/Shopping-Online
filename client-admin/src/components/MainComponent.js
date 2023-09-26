@@ -4,7 +4,7 @@ import Menu from './MenuComponent';
 import Home from './HomeComponent';
 import { Navigate, Route ,Routes} from 'react-router-dom';
 import Category from './CategoryComponent';
-import { Product } from '../../../server/models/Models';
+import Product  from './ProductComponent';
 class Main extends Component {
   static contextType = MyContext; // using this.context to access global state
   render() {
