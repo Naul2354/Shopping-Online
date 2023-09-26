@@ -52,7 +52,7 @@ class ProductDetail extends Component {
               <tr>
                 <td></td>
                 <td>
-                  <input type="submit" value="ADD NEW" />
+                    <input type="submit" value="ADD NEW" onClick={(e) => this.btnAddClick(e)} />
                   <input type="submit" value="UPDATE" />
                   <input type="submit" value="DELETE" />
                 </td>
@@ -97,6 +97,38 @@ class ProductDetail extends Component {
     axios.get('/api/admin/categories', config).then((res) => {
       const result = res.data;
       this.setState({ categories: result });
+    });
+  }
+  btnAddClick(e) {
+    e.preventDefault();
+    const name = this.state.txtName;
+    const price = parseInt(this.state.txtPrice);
+    const category = this.state.cmbCategory;
+    const image = this.state.imgProduct.replace(/^data:image\/[a-z]+;base64,/, ''); // remove "data:image/...;base64,"
+    if (name && price && category && image) {
+      const prod = { name: name, price: price, category: category, image: image };
+      this.apiPostProduct(prod);
+    } else {
+      alert('Please input name and price and category and image');
+    }
+  }
+  apiPostProduct(prod) {
+    const config = { headers: { 'x-access-token': this.context.token } };
+    axios.post('/api/admin/products', prod, config).then((res) => {
+      const result = res.data;
+      if (result) {
+        alert('OK BABY!');
+        this.apiGetProducts();
+      } else {
+        alert('SORRY BABY!');
+      }
+    });
+  }
+  apiGetProducts() {
+    const config = { headers: { 'x-access-token': this.context.token } };
+    axios.get('/api/admin/products?page=' + this.props.curPage, config).then((res) => {
+      const result = res.data;
+      this.props.updateProducts(result.products, result.noPages, result.curPage);
     });
   }
 }
