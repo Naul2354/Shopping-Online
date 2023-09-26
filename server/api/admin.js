@@ -27,20 +27,20 @@ router.get('/token', JwtUtil.checkToken, function (req, res) {
   const token = req.headers['x-access-token'] || req.headers['authorization'];
   res.json({ success: true, message: 'Token is valid', token: token }); //use POSTMAN to check valid token
 });
-//CATEGORIES
-//router GET categories (list)
+//Router Categories
+//GET categories (list)
 router.get('/categories', JwtUtil.checkToken, async function (req, res) {
   const categories = await CategoryDAO.selectAll();
   res.json(categories);
 });
-// router POST category (create)
+//POST category (create)
 router.post('/categories', JwtUtil.checkToken, async function (req, res) {
   const name = req.body.name;
   const category = { name: name };
   const result = await CategoryDAO.insert(category);
   res.json(result);
 });
-//ROUTER PUT category (update)
+//PUT category (update)
 router.put('/categories/:id', JwtUtil.checkToken, async function (req, res) {
   const _id = req.params.id;
   const name = req.body.name;
@@ -48,14 +48,14 @@ router.put('/categories/:id', JwtUtil.checkToken, async function (req, res) {
   const result = await CategoryDAO.update(category);
   res.json(result);
 });
-//ROUTER DELETE category (delete)
+//DELETE category (delete)
 router.delete('/categories/:id', JwtUtil.checkToken, async function (req, res) {
   const _id = req.params.id;
   const result = await CategoryDAO.delete(_id);
   res.json(result);
 });
-//Products
-//Router get products
+//Router Products
+//Router get products 
 router.get('/products',JwtUtil.checkToken,async function(req,res){
   //pagination
   const noProducts = await ProductDAO.selectByCount();
