@@ -3,6 +3,7 @@ import './App.css'
 import React , {Component} from 'react';
 import Main from './components/MainComponent';
 import { BrowserRouter } from 'react-router-dom';
+import MyProvider from './contexts/MyProvider';
 // class App extends Component{
 //   constructor(props){
 //     super(props);
@@ -31,9 +32,11 @@ import { BrowserRouter } from 'react-router-dom';
 class App extends Component {
   render() {
     return (
-      <BrowserRouter>
-        <Main />
-      </BrowserRouter>
+      <MyProvider>
+        <BrowserRouter >
+          <Main />
+        </BrowserRouter>
+      </MyProvider>
     );
   }
 }

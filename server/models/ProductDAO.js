@@ -58,7 +58,12 @@ const ProductDAO = {
         const query = { 'category._id': _cid };
         const products = await Models.Product.find(query).exec();
         return products;
-      }
+    },
+    async selectByKeyword(keyword) {
+        const query = { name: { $regex: new RegExp(keyword, "i") } };
+        const products = await Models.Product.find(query).exec();
+        return products;
+    },
     
 
 };

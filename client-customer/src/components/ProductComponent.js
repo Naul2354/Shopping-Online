@@ -15,7 +15,7 @@ class Product extends Component {
       return (
         <div key={item._id} className="inline">
           <figure>
-            <Link to=''><img src={"data:image/jpg;base64," + item.image} width="300px" height="300px" alt="" /></Link>
+            <Link to={'/product/' + item._id}><img src={"data:image/jpg;base64," + item.image} width="300px" height="300px" alt="" /></Link>
             <figcaption className="text-center">{item.name}<br />Price: {item.price}</figcaption>
           </figure>
         </div>
@@ -32,17 +32,27 @@ class Product extends Component {
     const params = this.props.params;
     if (params.cid) {
       this.apiGetProductsByCatID(params.cid);
+    }else if (params.keyword) {
+      this.apiGetProductsByKeyword(params.keyword);
     }
   }
   componentDidUpdate(prevProps) { // changed: /product/...
     const params = this.props.params;
     if (params.cid && params.cid !== prevProps.params.cid) {
       this.apiGetProductsByCatID(params.cid);
+    }else if (params.keyword && params.keyword !== prevProps.params.keyword) {
+      this.apiGetProductsByKeyword(params.keyword);
     }
   }
   // apis
   apiGetProductsByCatID(cid) {
     axios.get('/api/customer/products/category/' + cid).then((res) => {
+      const result = res.data;
+      this.setState({ products: result });
+    });
+  }
+  apiGetProductsByKeyword(keyword) {
+    axios.get('/api/customer/products/search/' + keyword).then((res) => {
       const result = res.data;
       this.setState({ products: result });
     });
