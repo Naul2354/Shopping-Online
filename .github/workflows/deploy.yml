@@ -17,7 +17,7 @@ jobs:
       - name: "🔧 setup node"
         uses: actions/setup-node@v2
         with:
-          node-version: 16 
+          node-version: '18.x' 
 
       - name: "📦 install dependencies and build project"
         run: |
@@ -29,7 +29,8 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name : combined-build
-          path : server/combined-build
+          path : .
+          # path : server/combined-build
   deploy:
     name: "🚀 Deploy App to Azure WebApp"
     runs-on: ubuntu-latest
