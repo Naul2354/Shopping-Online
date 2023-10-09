@@ -1,6 +1,5 @@
 {
-  "homepage": "/admin",
-  "proxy": "http://localhost:3000",
+
   "name": "client-admin",
   "version": "0.1.0",
   "private": true,
@@ -38,5 +37,7 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "homepage": "/admin",
+  "proxy": "http://localhost:3000"
 }

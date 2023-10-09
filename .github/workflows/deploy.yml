@@ -18,19 +18,24 @@ jobs:
         with:
           node-version: 14  # Choose the Node.js version you need
 
-      - name: Install backend dependencies
-        run: npm install
-
-      - name: Build client-admin
+      - name: Install dependencies and build
         run: |
+          echo "Install backend..."
+          npm install
+          echo "Build client-admin"
           cd ../client-admin
           npm install
           npm run build
-      - name : Build client-customer
-        run: |
+          echo "Build client-customer"
           cd ../client-customer
           npm install
           npm run build
+
+      - name: Static app
+        run: npm start
+
+
+
 
       # - name: Deploy to GitHub Pages
       #   uses: peaceiris/actions-gh-pages@v3
