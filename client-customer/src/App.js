@@ -1,4 +1,3 @@
-import axios from 'axios';
 import './App.css'
 import React , {Component} from 'react';
 import Main from './components/MainComponent';
