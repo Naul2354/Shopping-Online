@@ -1,4 +1,4 @@
-name: Build and Deploy GitHub Pages Test
+name: Build and Deploy App
 
 on:
   push:
@@ -7,6 +7,7 @@ on:
 
 jobs:
   build:
+    name : "🔧 Build App"
     runs-on: ubuntu-latest
 
     steps:
@@ -16,7 +17,7 @@ jobs:
       - name: "🔧 setup node"
         uses: actions/setup-node@v2
         with:
-          node-version: 14 
+          node-version: 16 
 
       - name: "📦 install dependencies and build project"
         run: |
@@ -27,8 +28,8 @@ jobs:
       - name : "📂 Upload artifact"
         uses: actions/upload-artifact@v2
         with:
-          name : build
-          path : build
+          name : combined-build
+          path : server/combined-build
   deploy:
     name: "🚀 Deploy App to Azure WebApp"
     runs-on: ubuntu-latest
@@ -42,8 +43,8 @@ jobs:
       - name: "📂 download build artifacts"
         uses: actions/download-artifact@v2
         with:
-          name: build
-          path: build
+          name: combined-build
+          path: server/combined-build
       # - name: "🚀 Deploy to Azure Static Web Apps"
       #   uses: Azure/static-web-apps-deploy@v1
       #   with:
