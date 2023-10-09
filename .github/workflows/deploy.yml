@@ -22,10 +22,12 @@ jobs:
         run: |
           echo "Install backend..."
           npm install
+      - name : Build client-admin    
           echo "Build client-admin"
           cd ../client-admin
           npm install
           npm run build
+      - name : Build client-customer
           echo "Build client-customer"
           cd ../client-customer
           npm install
