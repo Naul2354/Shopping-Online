@@ -28,7 +28,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name : build
-          path : server/build
+          path : build
   deploy:
     name: "🚀 Deploy App to Azure WebApp"
     runs-on: ubuntu-latest
@@ -43,7 +43,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: build
-          path: server/build
+          path: build
       # - name: "🚀 Deploy to Azure Static Web Apps"
       #   uses: Azure/static-web-apps-deploy@v1
       #   with:
