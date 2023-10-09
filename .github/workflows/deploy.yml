@@ -21,26 +21,11 @@ jobs:
       - name: Install dependencies and build
         run: |
           echo "Install backend..."
-          npm install
-      - name : Build client-admin
-        run: |    
-          echo "Build client-admin"
-          cd ../client-admin
+          cd server
           npm install
           npm run build
-      - name : Build client-customer
-        run: |    
-          echo "Build client-customer"
-          cd ../client-customer
-          npm install
-          npm run build
-
       - name: Static app
         run: npm start
-
-
-
-
       # - name: Deploy to GitHub Pages
       #   uses: peaceiris/actions-gh-pages@v3
       #   with:
