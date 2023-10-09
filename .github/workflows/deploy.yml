@@ -9,6 +9,7 @@ jobs:
   build:
     name : "🔧 Build App"
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     steps:
       - name: "☁️ checkout repository"
@@ -29,8 +30,8 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name : combined-build
-          path : .
-          # path : server/combined-build
+          # path : .
+          path : server/combined-build
   deploy:
     name: "🚀 Deploy App to Azure WebApp"
     runs-on: ubuntu-latest
