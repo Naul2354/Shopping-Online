@@ -29,9 +29,9 @@ jobs:
       - name : "📂 Upload artifact"
         uses: actions/upload-artifact@v2
         with:
-          name : combined-build
+          name : build-artifact
           # path : .
-          path : server/combined-build
+          path : server
   deploy:
     name: "🚀 Deploy App to Azure WebApp"
     runs-on: ubuntu-latest
@@ -45,8 +45,8 @@ jobs:
       - name: "📂 download build artifacts"
         uses: actions/download-artifact@v2
         with:
-          name: combined-build
-          path: server/combined-build
+          name: build-artifact
+          path: server
       - name: '🚀 Deploy to Azure Web App'
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
