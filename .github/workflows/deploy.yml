@@ -1,0 +1,40 @@
+name: Build and Deploy GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # Replace with your main branch name
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14  # Choose the Node.js version you need
+
+      - name: Install backend dependencies
+        run: npm install
+
+      - name: Build client-admin
+        run: |
+          cd ../client-admin
+          npm install
+          npm run build
+      - name : Build client-customer
+        run: |
+          cd ../client-customer
+          npm install
+          npm run build
+
+      # - name: Deploy to GitHub Pages
+      #   uses: peaceiris/actions-gh-pages@v3
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     publish_dir: your-frontend-folder/build  # Replace with the actual path to your frontend build folder
+      #     publish_branch: gh-pages  # GitHub Pages
