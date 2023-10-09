@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js",
-    "build": "(npm install) && (cd ../client-admin && npm install && npm run build) && (cd ../client-customer && npm install && npm run build)",
+    "build": "npm install && (cd ../client-admin && npm install && npm run build && cp -r build ../server/combined-build/client-admin) && (cd ../client-customer && npm install && npm run build && cp -r build ../server/combined-build/client-customer)",
+
     "start": "node index.js"
 
   },
