@@ -31,7 +31,7 @@ jobs:
         with:
           name : build-artifact
           # path : .
-          path : 
+          path : |
             server
             client-admin
             client-customer
@@ -49,7 +49,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: build-artifact
-          path: 
+          path: |
             server
             client-admin
             client-customer
