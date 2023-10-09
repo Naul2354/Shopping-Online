@@ -31,7 +31,10 @@ jobs:
         with:
           name : build-artifact
           # path : .
-          path : server
+          path : 
+            server
+            client-admin
+            client-customer
   deploy:
     name: "🚀 Deploy App to Azure WebApp"
     runs-on: ubuntu-latest
@@ -46,7 +49,10 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: build-artifact
-          path: server
+          path: 
+            server
+            client-admin
+            client-customer
       - name: '🚀 Deploy to Azure Web App'
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
@@ -54,7 +60,7 @@ jobs:
           app-name: 'shoppingonline-1'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_550AED0E063344B4BD7B44C687DA6A7A }}
-          package: server
+          package: .
 
 
 
