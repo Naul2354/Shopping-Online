@@ -84,9 +84,9 @@ jobs:
       with:
         azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_DELIGHTFUL_MUD_051D49200 }}
         action: "upload"
-        app_location: "/admin"  # Adjust as needed
-        api_location: "server"  # Leave empty for client
-        app_build_command: ""  # Leave empty for client
+        app_location: "../client-admin/src"  # Adjust as needed
+        api_location: "../server"  # Leave empty for client
+        app_build_command: "npm run build"  # Leave empty for client
         api_build_command: ""  # Leave empty for client
         app_artifact_location: "client-admin/build"  # Adjust as needed
         output_location: ""  # Leave empty for default
