@@ -1,54 +1,54 @@
-name: CI/CD for Shopping Online
+# name: CI/CD for Shopping Online
 
-on:
-  push:
-    branches:
-      - main  # Change this to your main branch name
+# on:
+#   push:
+#     branches:
+#       - main  # Change this to your main branch name
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
 
-    steps:
-    - name: "☁️ Checkout code "
-      uses: actions/checkout@v2
+#     steps:
+#     - name: "☁️ Checkout code "
+#       uses: actions/checkout@v2
 
-    - name: "🔧 Setup Node.js"
-      uses: actions/setup-node@v2
-      with:
-        node-version: '18.x'  # Adjust the Node.js version as needed
+#     - name: "🔧 Setup Node.js"
+#       uses: actions/setup-node@v2
+#       with:
+#         node-version: '18.x'  # Adjust the Node.js version as needed
 
-    - name: "📦 Install dependencies and build"
-      run: |
-        cd server
-        npm install
-        npm run build
-    # - name: "📂 Upload artifact"
-    #   uses: actions/upload-artifact@v2
-    #   with:
-    #     name: website-artifact
-    #     path: server/combined-build  # Adjust the path to your combined build output directory
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
+#     - name: "📦 Install dependencies and build"
+#       working-directory: server
+#       run: |
+#         npm install
+#         npm run build
+#     # - name: "📂 Upload artifact"
+#     #   uses: actions/upload-artifact@v2
+#     #   with:
+#     #     name: website-artifact
+#     #     path: server/combined-build  # Adjust the path to your combined build output directory
+#   deploy:
+#     needs: build
+#     runs-on: ubuntu-latest
  
-    steps:
-    - name: "🚀 Deploy to Azure Static Web Apps"
-      uses: Azure/static-web-apps-deploy@v1
-      with:
-        azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_ORANGE_BEACH_0C543C300 }}
-        repo_token: ${{ secrets.GITHUB_TOKEN }}
-        action: "upload"
-        app_location: "/"  # App source code path relative to repository root
-        api_location: "server/api"  # Api source code path relative to repository root - optional
-        app_build_command: ""
-        api_build_command: ""
-        app_artifact_location: "website-artifact"  # The name you specified in the upload-artifact step
-        output_location: ""  # Leave empty for default output location
-    - name: Start Server
-      run: |
-        cd server
-        npm install
-        npm start  # Assuming your server's production start script is "npm start"
+#     steps:
+#     - name: "🚀 Deploy to Azure Static Web Apps"
+#       uses: Azure/static-web-apps-deploy@v1
+#       with:
+#         azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_ORANGE_BEACH_0C543C300 }}
+#         repo_token: ${{ secrets.GITHUB_TOKEN }}
+#         action: "upload"
+#         app_location: "/"  # App source code path relative to repository root
+#         api_location: "server/api"  # Api source code path relative to repository root - optional
+#         app_build_command: ""
+#         api_build_command: ""
+#         app_artifact_location: "website-artifact"  # The name you specified in the upload-artifact step
+#         output_location: ""  # Leave empty for default output location
+#     - name: Start Server
+#       run: |
+#         cd server
+#         npm install
+#         npm start  # Assuming your server's production start script is "npm start"
 
 
