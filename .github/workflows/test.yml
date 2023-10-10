@@ -41,7 +41,7 @@ jobs:
         action: "upload"
         app_location: "/"  # App source code path relative to repository root
         api_location: "server/api"  # Api source code path relative to repository root - optional
-        app_build_command: "npm run start"
+        app_build_command: ""
         api_build_command: ""
         app_artifact_location: "website-artifact"  # The name you specified in the upload-artifact step
         output_location: ""  # Leave empty for default output location
