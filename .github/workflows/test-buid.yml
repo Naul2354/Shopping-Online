@@ -65,18 +65,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Deploy Admin Client to Azure
-      uses: Azure/static-web-apps-deploy@v1
-      with:
-        azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_ORANGE_BEACH_0C543C300 }}
-        repo_token: ${{ secrets.GITHUB_TOKEN }}
-        action: "upload"
-        app_location: "/admin"  
-        api_location: "server"  
-        app_build_command: ""  
-        api_build_command: ""  
-        app_artifact_location: "client-admin/build"
-        output_location: ""  
+    # - name: Deploy Admin Client to Azure
+    #   uses: Azure/static-web-apps-deploy@v1
+    #   with:
+    #     azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_ORANGE_BEACH_0C543C300 }}
+    #     repo_token: ${{ secrets.GITHUB_TOKEN }}
+    #     action: "upload"
+    #     app_location: "/admin"  
+    #     api_location: "server"  
+    #     app_build_command: ""  
+    #     api_build_command: ""  
+    #     app_artifact_location: "client-admin/build"
+    #     output_location: ""  
 
     - name: Deploy Customer Client to Azure
       uses: Azure/static-web-apps-deploy@v1
@@ -85,10 +85,10 @@ jobs:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         action: "upload"
         app_location: "/"  # Adjust as needed
-        api_location: "/server"  # Leave empty for client
+        api_location: "server/api"  # Leave empty for client
         app_build_command: ""  # Leave empty for client
         api_build_command: ""  # Leave empty for client
-        app_artifact_location: "client-customer/build"  # Adjust as needed
+        app_artifact_location: "server"  # Adjust as needed
         output_location: ""  # Leave empty for default
 
     # - name: Deploy Customer Client to Azure
